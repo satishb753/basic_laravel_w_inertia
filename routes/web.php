@@ -29,10 +29,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('send-mail', function(){
-    $details = [
+    $content = [
         'title' => 'Mail From Satish',
-        'body' => 'This is a testing for smtp.mailtrap.io'
+        'body' => 'This is a testing for smtp.hostinger.com'
     ];
 
-    \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($details));
+    \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($content));
 });
