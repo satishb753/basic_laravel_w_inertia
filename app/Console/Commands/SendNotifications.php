@@ -13,14 +13,14 @@ class SendNotifications extends Command
      *
      * @var string
      */
-    protected $signature = 'notification:send {notification}';
+    protected $signature = 'notification:insert {notificationName} {user_id}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send a notification to a user';
+    protected $description = 'Insert a notification to users table';
 
     /**
      * Create a new command instance.
@@ -39,7 +39,20 @@ class SendNotifications extends Command
      */
     public function handle()
     {
-        $text = $this->argument('notification');
-        return 0;
+        $text = $this->argument('notificationName');
+        $user_id = $this->argument('user_id');
+
+        //Create a new notification
+        try{
+            Notification::create([
+                'description' => $text,
+                'user_id' => $user_id,
+            ]);
+        } catch(Illuminate\Database\QueryException $ex) {
+            $errorcode = $ex->errorInfo[0];
+            $this->error($errorcode);
+        }
+        
+        return;
     }
 }

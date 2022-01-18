@@ -1,0 +1,7 @@
+This is how you can load all the files from a directory to your app
+
+
+foreach (glob("classes/*.php") as $filename)
+{
+    include $filename;
+}
