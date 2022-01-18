@@ -42,10 +42,12 @@ class SendNotifications extends Command
         $text = $this->argument('notificationName');
         $user_id = $this->argument('user_id');
 
+        // $text = $this->ask('What do you want to say to the user?');
+
         //Create a new notification
         try{
             Notification::create([
-                'description' => $text,
+                'description' => null,
                 'user_id' => $user_id,
             ]);
         } catch(Illuminate\Database\QueryException $ex) {

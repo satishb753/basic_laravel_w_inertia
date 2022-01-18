@@ -27,3 +27,12 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
+
+Route::get('send-mail', function(){
+    $details = [
+        'title' => 'Mail From Satish',
+        'body' => 'This is a testing for smtp.mailtrap.io'
+    ];
+
+    \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($details));
+});
