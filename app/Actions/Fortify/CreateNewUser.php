@@ -9,8 +9,10 @@ use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Notification;
+// use Illuminate\Support\Facades\Notification;
 use App\Notifications\UserRegisteredNotification;
+use App\Jobs\Excel\UserDetailsWriteJob;
+use App\Events\NewUserRegisteredEvent;
 
 class CreateNewUser implements CreatesNewUsers
 {
@@ -55,6 +57,10 @@ class CreateNewUser implements CreatesNewUsers
 
         // Send an email
         // \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($content));
+
+        UserDetailsWriteJob::dispatchSync($user);
+
+        // event(NewUserRegisteredEvent::class);
 
         return $user;
     }
