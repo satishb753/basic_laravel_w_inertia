@@ -33,10 +33,10 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        $content = [
-            'title' => 'New user named '. $input['name'] .' Registered',
-            'body' => 'A new user with name '. $input['name'] .' and email: '. $input['email'] .' was registered.'
-        ];
+        // $content = [
+        //     'title' => 'New user named '. $input['name'] .' Registered',
+        //     'body' => 'A new user with name '. $input['name'] .' and email: '. $input['email'] .' was registered.'
+        // ];
 
         $user = User::create([
             'name' => $input['name'],
@@ -46,9 +46,14 @@ class CreateNewUser implements CreatesNewUsers
 
         $receiver = User::where('id',8)->first();
 
-        $receiver->notify(new UserRegisteredNotification($user));
+        $receiver->notify((new UserRegisteredNotification($user))->delay([
+            'mail' => now()->addMinutes(5)
+        ]));
+
+        // Send Notification immediately
         // Notification::sendNow($receiver, new UserRegisteredNotification($user));
-        
+
+        // Send an email
         // \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($content));
 
         return $user;

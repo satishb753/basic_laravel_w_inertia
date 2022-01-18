@@ -28,10 +28,10 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->name('dashboard');
 
-Route::get('send-mail', function(){
+Route::get('mail-test', function(){
     $content = [
         'title' => 'Mail From Satish',
-        'body' => 'This is a testing for smtp.hostinger.com'
+        'body' => 'This is an e-mail testing for smtp.hostinger.com'
     ];
 
     \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($content));

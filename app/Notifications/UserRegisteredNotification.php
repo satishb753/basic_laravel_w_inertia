@@ -7,7 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class UserRegisteredNotification extends Notification implements ShouldQueue
+//Note: Using ShouldQueue will require worker
+class UserRegisteredNotification extends Notification implements ShouldQueue 
 {
     use Queueable;
 
@@ -47,7 +48,7 @@ class UserRegisteredNotification extends Notification implements ShouldQueue
                     // ->action('Notification Action', url('/'))
                     ->line('New user has registered!')
                     ->line('Email: '. $this->user->email)
-                    ->line('Thank you for using our application!');
+                    ->line('Thank you');
     }
 
     /**
