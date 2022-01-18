@@ -18,7 +18,7 @@ class UserRegisteredNotification extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($user)
     {
         $this->user = $user;
     }
@@ -43,8 +43,10 @@ class UserRegisteredNotification extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
+                    ->line('Hi, '.$notifiable->name)
+                    // ->action('Notification Action', url('/'))
+                    ->line('New user has registered!')
+                    ->line('Email: '. $this->user->email)
                     ->line('Thank you for using our application!');
     }
 

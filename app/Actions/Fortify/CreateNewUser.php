@@ -8,9 +8,15 @@ use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\UserRegisteredNotification;
+
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
+
+    use Notifiable;
 
     /**
      * Validate and create a newly registered user.
@@ -31,13 +37,20 @@ class CreateNewUser implements CreatesNewUsers
             'title' => 'New user named '. $input['name'] .' Registered',
             'body' => 'A new user with name '. $input['name'] .' and email: '. $input['email'] .' was registered.'
         ];
-        
-        \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($content));
 
-        return User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        $receiver = User::where('id',8)->first();
+
+        $receiver->notify(new UserRegisteredNotification($user));
+        // Notification::sendNow($receiver, new UserRegisteredNotification($user));
+        
+        // \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($content));
+
+        return $user;
     }
 }
