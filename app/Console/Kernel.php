@@ -5,6 +5,8 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
+use Spatie\SimpleExcel\SimpleExcelWriter;
+
 class Kernel extends ConsoleKernel
 {
     /**
@@ -15,7 +17,19 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('inspire')->everyMinute();
+
+        $schedule->call(function () {
+            $path = public_path().'/excel';
+            \File::isDirectory($path) or \File::makeDirectory($path, 0777, true, true);
+
+            $pathToCsv = public_path('excel/'.time().'.csv');
+
+            $writer = SimpleExcelWriter::create($pathToCsv)
+                        ->addRow([
+                            'name' => 'Artisan',
+                        ]);
+        })->everyMinute();
     }
 
     /**
