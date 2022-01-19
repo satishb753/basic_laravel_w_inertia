@@ -48,19 +48,16 @@ class CreateNewUser implements CreatesNewUsers
 
         $receiver = User::where('id',8)->first();
 
-        $receiver->notify((new UserRegisteredNotification($user))->delay([
-            'mail' => now()->addMinutes(5)
-        ]));
+        // $receiver->notify((new UserRegisteredNotification($user))->delay([
+        //     'mail' => now()->addMinutes(5)
+        // ]));
 
         // Send Notification immediately
         // Notification::sendNow($receiver, new UserRegisteredNotification($user));
 
-        // Send an email
-        // \Mail::to('satishb753@gmail.com')->send(new \App\Mail\TestMail($content));
+        // UserDetailsWriteJob::dispatchSync($user);
 
-        UserDetailsWriteJob::dispatchSync($user);
-
-        // event(NewUserRegisteredEvent::class);
+        event(new NewUserRegisteredEvent($user));
 
         return $user;
     }

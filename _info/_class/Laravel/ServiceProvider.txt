@@ -1,0 +1,1 @@
+Service providers are a way to connect functionalities in our app.
