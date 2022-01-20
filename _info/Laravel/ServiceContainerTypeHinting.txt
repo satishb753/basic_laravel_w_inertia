@@ -1,0 +1,8 @@
+Thanks to zero configuration resolution,
+ we will often type-hint dependencies
+  on routes, controllers, event listeners, and elsewhere
+   without ever manually interacting with the container.
+
+
+Laravel's facades and helper functions provide a simple way of utilizing Laravel's services
+ without needing to type-hint and resolve contracts out of the service container.

@@ -1,0 +1,7 @@
+Any complecated functionality that we want to refractor and
+ make sure that the refractoring does not break anything existing
+    for that we need to write tests
+
+
+Visit this page to view all available assertions
+https://laravel.com/docs/8.x/http-tests#available-assertions

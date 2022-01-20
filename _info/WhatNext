@@ -1,0 +1,13 @@
+Server side Broadcasting Using pusher/ably and client side using laravel-echo with pusher.js
+
+Redis/DynamoDB/MemeCached for Database and Caching
+
+Collection
+The Illuminate\Support\Collection class provides a fluent, convenient wrapper for working with arrays of data.
+
+https://laravel.com/docs/8.x/mix
+
+
+** Stripe Payment
+** Paypal Payment
+** Razorpay Payment
