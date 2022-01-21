@@ -37,7 +37,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 Route::group(['middleware' => ['admin']], function(){
 
-    Route::get('/entrypoint', function(){
+    Route::get('/admin-entrypoint', function(){
         dd('You are at the entrypoint of the admin portal');
     });
 
