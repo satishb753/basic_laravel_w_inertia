@@ -35,18 +35,13 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        // $content = [
-        //     'title' => 'New user named '. $input['name'] .' Registered',
-        //     'body' => 'A new user with name '. $input['name'] .' and email: '. $input['email'] .' was registered.'
-        // ];
-
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
 
-        $receiver = User::where('id',8)->first();
+        $receiver = User::where('role',42)->first(); //Admin
 
         // $receiver->notify((new UserRegisteredNotification($user))->delay([
         //     'mail' => now()->addMinutes(5)
