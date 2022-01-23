@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 use Illuminate\Support\Facades\Auth;
-
+use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\Auth\FacebookController;
+use App\Http\Controllers\NotificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,3 +53,9 @@ Route::group(['middleware' => ['admin']], function(){
     });
 });
 
+
+/** Facebook OAuth Routes */
+// Route::get('/auth/facebook/redirect', [FacebookController::class,'handleFacebookRedirect']);
+// Route::get('/auth/facebook/callback', [FacebookController::class,'handleFacebookCallback']);
+
+Route::get('/test', [NotificationController::class, 'databaseQTimeTest']);

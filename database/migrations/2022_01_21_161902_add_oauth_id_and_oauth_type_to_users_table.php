@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddRoleToUsersTable extends Migration
+class AddOauthIdAndOauthTypeToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddRoleToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedSmallInteger('role')->default(0);
+            $table->string('oauth_id')->default('');
+            $table->string('oauth_type')->default('');
         });
     }
 
@@ -26,7 +27,8 @@ class AddRoleToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('role');
+            $table->dropColumn('oauth_id');
+            $table->dropColumn('oauth_type');
         });
     }
 }
