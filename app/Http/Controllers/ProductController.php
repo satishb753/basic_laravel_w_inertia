@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller
 {
@@ -11,9 +14,10 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $products = Product::where('user_id', $request->user()->id)->get();
+        return view('products.index', compact('products'));
     }
 
     /**
@@ -23,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     /**
@@ -32,9 +36,26 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {
-        //
+        $validated = $request->validated();
+
+        if ($image = $request->file('image')) {
+            $new_imageName  = time() . "." . $image->getClientOriginalExtension();
+            $image->move(public_path('image'), $new_imageName);
+        }
+
+        $product = Product::create(
+            [
+            'user_id' => $request->user()->id,
+            'title' => $validated['title'],
+            'price' => $validated['price'],
+            'image' => $new_imageName
+            ],
+            
+        );
+
+        dd($product);
     }
 
     /**

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -43,6 +44,10 @@ Route::group(['middleware' => ['admin']], function(){
         dd('You are at the entrypoint of the admin portal');
     });
 
+    Route::resources([
+        'products' => ProductController::class
+    ]);
+
     Route::get('mail-test', function(){
         $content = [
             'title' => 'Mail From Satish',
@@ -59,3 +64,4 @@ Route::group(['middleware' => ['admin']], function(){
 // Route::get('/auth/facebook/callback', [FacebookController::class,'handleFacebookCallback']);
 
 Route::get('/test', [NotificationController::class, 'databaseQTimeTest']);
+

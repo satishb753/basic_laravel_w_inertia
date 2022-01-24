@@ -15,17 +15,18 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('product_id');
             $table->foreignId('user_id')->nullable();
             $table->string('title');
             $table->double('price', 15, 8);
+            $table->string('image')->nullable();
             $table->longText('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index('product_id');
             $table->index('user_id');
             $table->index('title');
+            $table->index('price');
+            $table->fulltext('description');
         });
     }
 

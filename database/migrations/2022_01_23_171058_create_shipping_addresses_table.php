@@ -21,6 +21,7 @@ class CreateShippingAddressesTable extends Migration
             $table->string('city')->nullable();
             $table->foreignId('state_id')->nullable();
             $table->foreignId('country_id')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -41,7 +41,7 @@ class RoleTableSeeder extends Seeder
             3 =>
                 array(
                     'id' => 5,
-                    'role_id' => 1,
+                    'role_id' => 0,
                     'title' => 'customer'
             ),
             
