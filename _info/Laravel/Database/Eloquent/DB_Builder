@@ -1,3 +1,15 @@
+WRITING raw select query: 
  use Illuminate\Support\Facades\DB;
  
  DB::select('select * from users where id = :id', ['id' => 1]);
+
+
+
+
+TIP For performance:
+// Eloquent
+    // $this->products is equivalant to writing $this->products()->get(), which has fetched the data.
+    // Slower, because data is loaded
+ 
+    // $this->products() is equivalant to writing query, data has not been fetched in this case!
+    // Faster, because data is not loaded

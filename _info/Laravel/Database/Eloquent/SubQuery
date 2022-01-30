@@ -1,0 +1,24 @@
+
+//Laravel Eloquent way of running subquery
+
+$users = User::where(function ($query) {
+    $query->select('type')
+        ->from('membership')
+        ->whereColumn('membership.user_id', 'users.id')
+        ->orderByDesc('membership.start_date')
+        ->limit(1);
+}, 'Pro')->get();
+
+
+//SQL Way to running subquery
+
+$data = DB::table("products")
+          ->select("products.*",
+                    DB::raw("(SELECT SUM(products_stock.stock) FROM products_stock
+                                WHERE products_stock.product_id = products.id
+                                GROUP BY products_stock.product_id) as product_stock"),
+                    DB::raw("(SELECT SUM(products_sell.sell) FROM products_sell
+                                WHERE products_sell.product_id = products.id
+                                GROUP BY products_sell.product_id) as product_sell"))
+          ->get();
+

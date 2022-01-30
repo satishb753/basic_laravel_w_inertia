@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use App\Http\Controllers\Auth\FacebookController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,7 +30,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function(){
-    dd("You are on the home screen of the application");
+    return Inertia::render('Storefront');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -45,10 +45,14 @@ Route::group(['middleware' => ['admin']], function(){
     });
 
     Route::resources([
-        'products' => ProductController::class
+        'products' => App\Http\Controllers\Admin\ProductController::class
     ]);
 
-    Route::get('mail-test', function(){
+    Route::resources([
+        'users' => App\Http\Controllers\Admin\UserController::class
+    ]);
+
+    Route::get('mail-send', function(){
         $content = [
             'title' => 'Mail From Satish',
             'body' => 'This is an e-mail testing for smtp.hostinger.com'

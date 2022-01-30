@@ -1,0 +1,3 @@
+//controller resource command
+
+php artisan make:controller Admin/UserController --resource

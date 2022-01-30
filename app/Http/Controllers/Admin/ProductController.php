@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 
@@ -16,7 +17,10 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::where('user_id', $request->user()->id)->get();
+        // $products = Product::where('user_id', $request->user()->id)->get();
+        $products = $request->user()->withSum('products','price')->get()->toArray();
+        // $products = $request->user()->withCount('products')->get()->toArray();
+        // dd($products);
         return view('products.index', compact('products'));
     }
 
@@ -51,11 +55,10 @@ class ProductController extends Controller
             'title' => $validated['title'],
             'price' => $validated['price'],
             'image' => $new_imageName
-            ],
-            
+            ]
         );
 
-        dd($product);
+        return redirect()->route('products.index')->with('msg', 'Product is inserted Successfully');
     }
 
     /**

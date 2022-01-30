@@ -38,7 +38,7 @@ class RoleTableSeeder extends Seeder
                     'role_id' => 3,
                     'title' => 'vendor'
             ),
-            3 =>
+            4 =>
                 array(
                     'id' => 5,
                     'role_id' => 0,
